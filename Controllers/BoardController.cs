@@ -71,7 +71,82 @@ public async Task<IActionResult> CreateBoard([FromBody] CreateBoardDTO boardDto)
     }
 }
 
-     
-       
+      [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteBoard(int id)
+        {
+            var board = await _context.Boards.FindAsync(id);
+            if (board == null)
+            {
+                return NotFound();
+            }
+
+            _context.Boards.Remove(board);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        private bool BoardExists(int id)
+        {
+            return _context.Boards.Any(e => e.Id == id);
+        }
+
+
+
+[HttpPut("{id}/edit")]
+public async Task<IActionResult> EditBoard(int id, CreateBoardDTO board)
+{
+    if (id != board.Id)
+    {
+        return BadRequest();
+    }
+
+    var existingBoard = await _context.Boards.FindAsync(id);
+    if (existingBoard == null)
+    {
+        return NotFound();
+    }
+
+    existingBoard.Id = board.Id;
+    existingBoard.Name = board.Name;
+    existingBoard.BoardImage = board.BoardImage;
+    existingBoard.UserProfileId = board.UserProfileId;
+
+    _context.Entry(existingBoard).State = EntityState.Modified;
+
+    try
+    {
+        await _context.SaveChangesAsync();
+    }
+    catch (DbUpdateConcurrencyException)
+    {
+        if (!BoardExists(id))
+        {
+            return NotFound();
+        }
+        else
+        {
+            throw;
+        }
+    }
+
+    return NoContent();
+}
+
+     [HttpGet("{boardId}/one")]
+        public async Task<ActionResult<Board>> GetBoard(int boardId)
+        {
+            var board = await _context.Boards.FindAsync(boardId);
+
+            if (board == null)
+            {
+                return NotFound();
+            }
+
+            return board;
+        }
+
+
+
     }
 }

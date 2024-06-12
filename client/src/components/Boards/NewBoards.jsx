@@ -26,7 +26,7 @@ function BoardForm({ loggedInUser}) {
       };
       await createBoard(newBoard);
       // Redirect to board list or other route
-      navigate("/board");
+      navigate("/boards");
     } catch (error) {
       console.error('Error creating board:', error);
       setError('Failed to create board');
