@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { getBoardsByUserId } from '../../Managers/boardManager';
-import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
+import { Link, useNavigate } from 'react-router-dom';
 import "./AllBoards.css";
 
 function BoardList({ loggedInUser }) {
   const [boards, setBoards] = useState([]);
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBoards = async () => {
@@ -22,7 +22,7 @@ function BoardList({ loggedInUser }) {
 
   // Function to handle navigation to the create board form
   const navigateToCreateBoard = () => {
-    navigate('/board/create');
+    navigate('/boards/create');
   };
 
   return (
@@ -33,10 +33,13 @@ function BoardList({ loggedInUser }) {
       </div>
       <div className="board-list">
         {boards.map(board => (
-          <div key={board.id} className="board-item">
-            <h3>{board.name}</h3>
-            <img src={board.boardImage} alt={board.name} style={{ maxWidth: '200px' }} />
-          </div>
+          // Wrap each board item in a Link component
+          <Link key={board.id} to={`/boards/${board.id}`} className="board-item-link">
+            <div className="board-item">
+              <h3>{board.name}</h3>
+              <img src={board.boardImage} alt={board.name} style={{ maxWidth: '200px' }} />
+            </div>
+          </Link>
         ))}
       </div>
     </div>
