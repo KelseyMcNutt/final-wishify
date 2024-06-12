@@ -1,17 +1,26 @@
 .board-list-container {
     width: 100%;
     padding: 20px;
+   
   }
   
   .board-list {
     display: flex;
     flex-wrap: wrap;
+    
   }
   
   .board-item {
-    width: calc(33.33% - 20px); /* Three items per row with spacing between */
     margin: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid black;
     padding: 10px;
+    width: 350px;
+    color: black;
   }
+  
+  img {
+    height: 200px;
+    
+  }
+  
   

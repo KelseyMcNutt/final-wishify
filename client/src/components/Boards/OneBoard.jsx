@@ -3,12 +3,13 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { deleteBoardById } from '../../Managers/boardManager';
 import { getBoardById } from '../../Managers/boardManager';
 import { getItemsForBoard } from '../../Managers/boardItemManager';
+import { Link } from 'react-router-dom';
 
 function BoardItemDisplay() {
   const [items, setItems] = useState([]);
   const [boardName, setBoardName] = useState('');
   const { boardId } = useParams();
-  const navigate = useNavigate(); // Use the navigate hook
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchBoardDetails = async () => {
@@ -25,12 +26,9 @@ function BoardItemDisplay() {
 
   useEffect(() => {
     const fetchItems = async () => {
-      try {
         const itemsData = await getItemsForBoard(boardId);
         setItems(itemsData);
-      } catch (error) {
-        console.error('Error fetching items:', error);
-      }
+     
     };
 
     fetchItems();
@@ -58,7 +56,9 @@ function BoardItemDisplay() {
       <div className="board-item-grid">
         {items.map(item => (
           <div key={item.id} className="board-item">
-            <img src={item.image} alt={item.name} className="board-item-image" />
+            <Link to={`/item/${item.id}`}>
+              <img src={item.image} alt={item.name} className="board-item-image" />
+              </Link>
           </div>
         ))}
       </div>

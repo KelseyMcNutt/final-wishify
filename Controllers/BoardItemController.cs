@@ -26,11 +26,6 @@ namespace Wishify.Controllers
                 .Select(bi => bi.Item)
                 .ToList();
 
-            if (items == null || !items.Any())
-            {
-                return NotFound("No items found for the board.");
-            }
-
             return items;
         }
     }

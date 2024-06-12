@@ -6,6 +6,7 @@ import BoardList from './Boards/AllBoards';
 import BoardForm from './Boards/NewBoards'; 
 import BoardItemDisplay from './Boards/OneBoard';
 import EditBoardForm from './Boards/EditBoard';
+import ItemDetails from './Items/ItemDetails';
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
@@ -36,9 +37,11 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
               <EditBoardForm loggedInUser={loggedInUser} />
             }
             />
+            
 
       </Route>
-      
+      <Route path="/item/:itemId" element={<ItemDetails loggedInUser={loggedInUser} />} />
+
       <Route path="/login" element={<Login setLoggedInUser={setLoggedInUser} />} />
       <Route path="/register" element={<Register setLoggedInUser={setLoggedInUser} />} />
       <Route path="*" element={<p>Whoops, nothing here...</p>} />
