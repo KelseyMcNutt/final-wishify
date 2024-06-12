@@ -1,0 +1,14 @@
+/* NavBar.css */
+
+.navbar-container {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensure the navbar is above other content */
+  }
+  
+  .navbar {
+    width: 100%;
+  }
+  
