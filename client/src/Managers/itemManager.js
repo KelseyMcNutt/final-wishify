@@ -34,3 +34,13 @@ export const updateItemDetails = (itemId, item) => {
     .then(res => res.json());
       
   };
+
+  export const createItem = (item, userId) => {
+    return fetch(`${_apiUrl}/${userId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(item)
+    })
+  };
