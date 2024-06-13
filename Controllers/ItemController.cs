@@ -50,5 +50,101 @@ namespace Wishify.Controllers
 
             return itemDetails;
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateItem(int id, ItemDetailsDTO itemDetailsDto)
+        {
+            if (id != itemDetailsDto.Id)
+            {
+                return BadRequest();
+            }
+
+            var item = await _context.Items.FindAsync(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            item.Name = itemDetailsDto.Name;
+            item.Link = itemDetailsDto.Link;
+            item.Image = itemDetailsDto.Image;
+            item.Price = itemDetailsDto.Price;
+            item.StoreId = itemDetailsDto.StoreId;
+            item.InCart = itemDetailsDto.InCart;
+
+            _context.Entry(item).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ItemExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        private bool ItemExists(int id)
+        {
+            return _context.Items.Any(e => e.Id == id);
+        }
+
+
+         [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteItem(int id)
+        {
+            var item = await _context.Items.FindAsync(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            _context.Items.Remove(item);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+           [HttpGet("user/{userId}")]
+        public async Task<ActionResult<IEnumerable<ItemDTO>>> GetItemsByUserId(int userId)
+        {
+            var items = await _context.Items
+                .Where(i => i.UserProfileId == userId)
+                .Select(i => new ItemDTO
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Link = i.Link,
+                    Image = i.Image,
+                    Price = i.Price,
+                    StoreId = i.StoreId,
+                    Store = i.Store,
+                    UserProfileId = i.UserProfileId,
+                    UserProfile = new UserProfileDTO
+                    {
+                        Id = i.UserProfile.Id,
+                        FirstName = i.UserProfile.FirstName,
+                        LastName = i.UserProfile.LastName,
+                        ProfileImage = i.UserProfile.ProfileImage,
+                        MonthlyBudget = i.UserProfile.MonthlyBudget
+                    },
+                    DateAdded = i.DateAdded,
+                    InCart = i.InCart
+                })
+                .ToListAsync();
+
+            return items;
+        }
+
+
     }
 }

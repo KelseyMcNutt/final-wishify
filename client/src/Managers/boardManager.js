@@ -46,5 +46,17 @@ export const editBoardById =(boardId, boardData) => {
         // const data = await response.json();
         // return data;
     
+
    
 }
+
+// export const getAllBoards = () => {
+//     return fetch(boardsApiUrl)
+//       .then(res => {
+//         if (!res.ok) {
+//           throw new Error('Error fetching boards');
+//         }
+//         return res.json();
+//       });
+//   };
+  

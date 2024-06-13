@@ -146,7 +146,19 @@ public async Task<IActionResult> EditBoard(int id, CreateBoardDTO board)
             return board;
         }
 
+         [HttpGet]
+        public async Task<ActionResult<IEnumerable<BoardDTO>>> GetBoards()
+        {
+            var boards = await _context.Boards
+                .Select(b => new BoardDTO
+                {
+                    Id = b.Id,
+                    Name = b.Name
+                })
+                .ToListAsync();
 
+            return boards;
+        }
 
     }
 }

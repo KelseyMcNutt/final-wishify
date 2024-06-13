@@ -11,6 +11,8 @@ export default function Register({ setLoggedInUser }) {
   const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [profileImage, setProfileImage] = useState("");
+  const [monthlyBudget, setMonthlyBudget] = useState("");
 
   const [passwordMismatch, setPasswordMismatch] = useState();
   const [registrationFailure, setRegistrationFailure] = useState(false);
@@ -30,6 +32,8 @@ export default function Register({ setLoggedInUser }) {
         email,
         address,
         password,
+        profileImage,
+        monthlyBudget
       };
       register(newUser).then((user) => {
         if (user) {
@@ -108,7 +112,7 @@ export default function Register({ setLoggedInUser }) {
         />
       </FormGroup>
       <FormGroup>
-        <Label> Confirm Password</Label>
+        <Label>Confirm Password</Label>
         <Input
           invalid={passwordMismatch}
           type="password"
@@ -119,6 +123,26 @@ export default function Register({ setLoggedInUser }) {
           }}
         />
         <FormFeedback>Passwords do not match!</FormFeedback>
+      </FormGroup>
+      <FormGroup>
+        <Label>Profile Image URL</Label>
+        <Input
+          type="text"
+          value={profileImage}
+          onChange={(e) => {
+            setProfileImage(e.target.value);
+          }}
+        />
+      </FormGroup>
+      <FormGroup>
+        <Label>Monthly Budget</Label>
+        <Input
+          type="number"
+          value={monthlyBudget}
+          onChange={(e) => {
+            setMonthlyBudget(parseInt(e.target.value));
+          }}
+        />
       </FormGroup>
       <p style={{ color: "red" }} hidden={!registrationFailure}>
         Registration Failure

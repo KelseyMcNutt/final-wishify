@@ -14,7 +14,9 @@ public class Registration
     public string FirstName { get; set; }
     [Required]
     public string LastName { get; set; }
-    [Required]
+    
     public string Address { get; set; }
+     public string ProfileImage { get; set; }
+    public decimal MonthlyBudget { get; set; }
 
 }

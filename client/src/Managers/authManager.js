@@ -26,6 +26,10 @@ export const tryGetLoggedInUser = () => {
   });
 };
 
+
+
+
+
 export const register = (userProfile) => {
   userProfile.password = btoa(userProfile.password);
   return fetch(_apiUrl + "/register", {
@@ -37,3 +41,4 @@ export const register = (userProfile) => {
     body: JSON.stringify(userProfile),
   }).then(() => tryGetLoggedInUser());
 };
+
