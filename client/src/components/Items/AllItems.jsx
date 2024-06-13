@@ -24,9 +24,14 @@ export const AllItems = ({ loggedInUser }) =>
     navigate(`/item/${itemId}`);
   };
 
+  const handleAddItemClick = () => {
+    navigate('/items/new');
+  };
+
   return (
     <div className="all-items">
       <h1>All Items</h1>
+      <button onClick={handleAddItemClick}>Add Item</button>
       {items.map(item => (
         <img
           key={item.id}

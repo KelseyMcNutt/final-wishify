@@ -146,5 +146,26 @@ namespace Wishify.Controllers
         }
 
 
+        [HttpPost ("{userId}")]
+        public async Task<ActionResult<ItemDTO>> CreateItem(AddItemDTO itemDto, int userId)
+        {
+            var item = new Item
+            {
+                Name = itemDto.Name,
+                Link = itemDto.Link,
+                Image = itemDto.Image,
+                Price = itemDto.Price,
+                StoreId = itemDto.StoreId,
+                UserProfileId = userId,
+                DateAdded = DateTime.Now,
+                InCart = itemDto.InCart
+            };
+
+            _context.Items.Add(item);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetItemDetails), new { id = item.Id }, itemDto);
+        }
+
     }
 }
