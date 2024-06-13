@@ -7,6 +7,8 @@ import BoardForm from './Boards/NewBoards';
 import BoardItemDisplay from './Boards/OneBoard';
 import EditBoardForm from './Boards/EditBoard';
 import ItemDetails from './Items/ItemDetails';
+import EditItem from './Items/EditItem';
+import {AllItems} from './Items/AllItems';
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
@@ -42,6 +44,8 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
       </Route>
       <Route path="/item/:itemId" element={<ItemDetails loggedInUser={loggedInUser} />} />
 
+      <Route path="/item/:itemId/edit" element={<EditItem loggedInUser={loggedInUser} />} /> 
+      <Route path="/items" element={<AllItems loggedInUser={loggedInUser} />} />
       <Route path="/login" element={<Login setLoggedInUser={setLoggedInUser} />} />
       <Route path="/register" element={<Register setLoggedInUser={setLoggedInUser} />} />
       <Route path="*" element={<p>Whoops, nothing here...</p>} />

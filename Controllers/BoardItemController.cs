@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Wishify.Data;
 using Wishify.Models;
+using Wishify.Models.DTOs;
 
 namespace Wishify.Controllers
 {
@@ -28,5 +29,51 @@ namespace Wishify.Controllers
 
             return items;
         }
+
+        [HttpGet("{itemId}/get")]
+        public async Task<ActionResult<IEnumerable<BoardItemDTO>>> GetBoardItems(int itemId)
+        {
+            var boardItems = await _context.BoardItems
+                .Where(bi => bi.ItemId == itemId)
+                .Include(bi => bi.Board)
+                .Select(bi => new BoardItemDTO
+                {
+                    Id = bi.Id,
+                    ItemId = bi.ItemId,
+                    BoardId = bi.BoardId,
+                    Board = new BoardDTO
+                    {
+                        Id = bi.Board.Id,
+                        Name = bi.Board.Name
+                    }
+                })
+                .ToListAsync();
+
+            return boardItems;
+        }
+
+
+        [HttpPut("{itemId}")]
+        public async Task<IActionResult> UpdateBoardItems(int itemId, List<int> boardIds)
+        {
+            var existingBoardItems = await _context.BoardItems
+                .Where(bi => bi.ItemId == itemId)
+                .ToListAsync();
+
+            _context.BoardItems.RemoveRange(existingBoardItems);
+
+            var newBoardItems = boardIds.Select(boardId => new BoardItem
+            {
+                ItemId = itemId,
+                BoardId = boardId
+            });
+
+            _context.BoardItems.AddRange(newBoardItems);
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
     }
 }

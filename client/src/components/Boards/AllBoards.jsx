@@ -33,7 +33,6 @@ function BoardList({ loggedInUser }) {
       </div>
       <div className="board-list">
         {boards.map(board => (
-          // Wrap each board item in a Link component
           <Link key={board.id} to={`/boards/${board.id}`} className="board-item-link">
             <div className="board-item">
               <h3>{board.name}</h3>

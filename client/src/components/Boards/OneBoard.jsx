@@ -4,6 +4,7 @@ import { deleteBoardById } from '../../Managers/boardManager';
 import { getBoardById } from '../../Managers/boardManager';
 import { getItemsForBoard } from '../../Managers/boardItemManager';
 import { Link } from 'react-router-dom';
+import "./OneBoard.css"
 
 function BoardItemDisplay() {
   const [items, setItems] = useState([]);
