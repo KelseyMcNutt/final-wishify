@@ -4,6 +4,8 @@ import { getUserProfileAndCartItems } from '../../Managers/userManager';
 import { Button } from 'reactstrap';
 import { getUsersById } from '../../Managers/userManager';
 import "./UserProfile.css"
+import { IoArrowBackSharp, IoPencil } from "react-icons/io5";
+
 
 const UserProfile = ({ loggedInUser }) => {
   const [profile, setProfile] = useState([]);
@@ -27,14 +29,15 @@ const UserProfile = ({ loggedInUser }) => {
   const totalPrice = cartItems.reduce((acc, item) => acc + item.price, 0);
   
   return (
+    <div className='container'>
     <div className="user-profile">
       <div className="profile-header">
-        <Button onClick={() => navigate(-1)} className="back-button">Back</Button>
+        <Button onClick={() => navigate(-1)} className="back-button"><IoArrowBackSharp/></Button>
         <img src={profile.profileImage || 'default-avatar.png'} alt="User Profile" className="profile-image" />
         <div className="profile-details">
           <h1>{profile.firstName}</h1>
           <p>Budget: ${profile.monthlyBudget}</p>
-          <Button onClick={() => navigate('/user-profile/edit')} className="edit-button">Edit</Button>
+          <Button onClick={() => navigate('/user-profile/edit')} className="edit-button"><IoPencil /></Button>
         </div>
       </div>
       <div className="cart">
@@ -50,8 +53,9 @@ const UserProfile = ({ loggedInUser }) => {
             />
           ))}
         </div>
-        <p>Total: ${totalPrice}</p>
+        <p className='total-price'>Total: ${totalPrice}</p>
       </div>
+    </div>
     </div>
   );
 };

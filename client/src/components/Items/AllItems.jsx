@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAllItemsByUserId } from '../../Managers/itemManager';
 import { useNavigate } from 'react-router-dom';
+import "./AllItems.css"
 
 export const AllItems = ({ loggedInUser }) => 
  {
@@ -29,9 +30,13 @@ export const AllItems = ({ loggedInUser }) =>
   };
 
   return (
+    <>
+    <div className='all-items-header'>
+    <h1 className='all-items-header-h1'>All Items</h1>
+    <button onClick={handleAddItemClick} className='add-item-button'>Add Item</button>
+    </div>
     <div className="all-items">
-      <h1>All Items</h1>
-      <button onClick={handleAddItemClick}>Add Item</button>
+      <div className='one-item'>
       {items.map(item => (
         <img
           key={item.id}
@@ -41,7 +46,9 @@ export const AllItems = ({ loggedInUser }) =>
           style={{ cursor: 'pointer', margin: '10px' }}
         />
       ))}
+      </div>
     </div>
+    </>
   );
 }
 

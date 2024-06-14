@@ -1,0 +1,30 @@
+.all-items {
+    display: flex;
+}
+
+img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+img:hover {
+    border-color: #000;
+  }
+
+.all-items-header {
+    display: flex;
+    justify-content: center;
+}
+
+.add-item-button {
+    margin-left: 400px;
+}
+
+.all-items-header-h1 {
+    margin-left: 500px;
+}

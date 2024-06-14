@@ -30,7 +30,7 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
             <Collapse isOpen={open} navbar>
               <Nav navbar>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/boards">
+                  <NavLink tag={RRNavLink} to="/">
                     Boards
                   </NavLink>
                 </NavItem>

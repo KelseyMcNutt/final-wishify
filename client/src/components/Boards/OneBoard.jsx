@@ -38,7 +38,7 @@ function BoardItemDisplay() {
   const handleDelete = async () => {
     try {
       await deleteBoardById(boardId);
-      navigate("/boards")
+      navigate("/")
     } catch (error) {
       console.error('Error deleting board:', error);
     }
@@ -46,7 +46,7 @@ function BoardItemDisplay() {
 
   const handleEdit = () => {
     // Navigate to the edit form page
-    navigate(`/boards/${boardId}/edit`);
+    navigate(`/${boardId}/edit`);
   };
 
   return (
