@@ -12,54 +12,70 @@ import {AllItems} from './Items/AllItems';
 import AddItem from './Items/AddItem';
 import UserProfile from './UserProfile/UserProifle';
 import EditUserProfile from './UserProfile/EditUserProfile';
+import NavBar from './NavBar/NavBar';
+import { Outlet } from 'react-router-dom';
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
     <Routes>
       
-      <Route path="/boards">
+      <Route path="/" element={
+              <>
+              <NavBar loggedInUser={loggedInUser}/>
+              <Outlet/>
+              </>
+            } >
+      
+          <Route path="/">
+              <Route index element={<BoardList loggedInUser={loggedInUser} />} />
+          </Route>
           
-          <Route
-          index 
-          element={
-            <BoardList loggedInUser={loggedInUser} />
-          } 
-          />
-          <Route 
-          path="create" 
-          element={
-            <BoardForm loggedInUser={loggedInUser} />
-          } 
-          />
-          <Route path=":boardId"
-           element={
-            <BoardItemDisplay loggedInUser={loggedInUser} />
-           } 
-           />
-           <Route 
-            path=":boardId/edit"
-            element={
-              <EditBoardForm loggedInUser={loggedInUser} />
-            }
-            />
-            
-
+          <Route path="create">
+              <Route index element={<BoardForm loggedInUser={loggedInUser} />} />
+          </Route>
+          
+          <Route path=":boardId">
+            <Route index element={<BoardItemDisplay loggedInUser={loggedInUser} />} />
+          </Route>
+              
+          <Route path=":boardId/edit">
+            <Route index element={<EditBoardForm loggedInUser={loggedInUser} />}/>
+            </Route>   
+          
+          <Route path="/item/:itemId">
+            <Route index element={<ItemDetails loggedInUser={loggedInUser} />} />
+          </Route>
+          
+          <Route path="/item/:itemId/edit">
+            <Route index element={<EditItem loggedInUser={loggedInUser} />} /> 
+          </Route>
+          
+          <Route path="/items">
+            <Route  index element={<AllItems loggedInUser={loggedInUser} />} />
+          </Route>
+          
+          <Route path="/items/new">
+            <Route index element={<AddItem loggedInUser={loggedInUser} />}  />
+          </Route>
+      
       </Route>
-      <Route path="/item/:itemId" element={<ItemDetails loggedInUser={loggedInUser} />} />
-
-      <Route path="/item/:itemId/edit" element={<EditItem loggedInUser={loggedInUser} />} /> 
-      <Route path="/items" element={<AllItems loggedInUser={loggedInUser} />} />
-      <Route path="/items/new" element={<AddItem loggedInUser={loggedInUser} />} /> 
-      <Route path="/login" element={<Login setLoggedInUser={setLoggedInUser} />} />
-      <Route path="/register" element={<Register setLoggedInUser={setLoggedInUser} />} />
-      <Route
-        path="/user-profile"
-        element={<UserProfile loggedInUser={loggedInUser} />}
-      />
-      <Route
-        path="/user-profile/edit"
-        element={<EditUserProfile loggedInUser={loggedInUser} />}
-      />
+      
+      <Route path="/user-profile">
+        <Route index element={<UserProfile loggedInUser={loggedInUser} />} />
+      </Route>
+      
+      <Route path="/user-profile/edit">
+        <Route index element={<EditUserProfile loggedInUser={loggedInUser} />} />
+      </Route>
+      
+      <Route path="/login">
+        <Route index element={<Login setLoggedInUser={setLoggedInUser} />} />
+      </Route>
+      
+      <Route path="/register">
+        <Route index element={<Register setLoggedInUser={setLoggedInUser} />} />
+      </Route>
+      
       <Route path="*" element={<p>Whoops, nothing here...</p>} />
     
     </Routes>

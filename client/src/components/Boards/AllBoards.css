@@ -1,12 +1,15 @@
 .board-list-container {
     width: 100%;
     padding: 20px;
+    
    
   }
   
   .board-list {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
+
     
   }
   
@@ -21,6 +24,10 @@
   img {
     height: 200px;
     
+  }
+
+  .board-title-header {
+    margin-top: 80px;
   }
   
   

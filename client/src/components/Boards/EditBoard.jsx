@@ -33,7 +33,7 @@ function EditBoardForm({ loggedInUser }) {
         UserProfileId: loggedInUser.id
       };
       await editBoardById(parseInt(boardId), updatedBoard);
-      navigate(`/boards/${boardId}`);
+      navigate(`/${boardId}`);
   };
 
   return (
