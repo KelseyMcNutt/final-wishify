@@ -45,7 +45,6 @@ function BoardItemDisplay() {
   };
 
   const handleEdit = () => {
-    // Navigate to the edit form page
     navigate(`/${boardId}/edit`);
   };
 

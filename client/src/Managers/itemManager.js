@@ -44,3 +44,12 @@ export const updateItemDetails = (itemId, item) => {
       body: JSON.stringify(item)
     })
   };
+
+  export const addCartItem = (itemId) => {
+    return fetch(`${_apiUrl}/${itemId}/cart`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+};
