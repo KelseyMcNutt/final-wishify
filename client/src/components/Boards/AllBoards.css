@@ -1,6 +1,8 @@
 .board-list-container {
     width: 100%;
     padding: 20px;
+    overflow-y: auto; 
+    height: 100vh;
     
    
   }
@@ -19,6 +21,7 @@
     padding: 10px;
     width: 350px;
     color: black;
+    background-color: white;
   }
   
   img {
@@ -28,6 +31,27 @@
 
   .board-title-header {
     margin-top: 80px;
+    margin-right: 300px;
+    margin-left: 500px;;
+
   }
+
+  .board-list-header {
+    display: flex;
+    justify-content: center;
+  }
+
+  .create-board-btn {
+    height: 50px;
+    margin-top: 70px;
+    margin-left: 110px;
+    
+  }
+  body {
+    background-color: rgb(241, 225, 205);
+    
+}
+
+
   
   

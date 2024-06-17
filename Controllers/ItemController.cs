@@ -73,33 +73,28 @@ namespace Wishify.Controllers
             item.InCart = itemDetailsDto.InCart;
 
             _context.Entry(item).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ItemExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.SaveChangesAsync();
+           
 
             return NoContent();
         }
 
-        private bool ItemExists(int id)
+         [HttpPut("{itemId}/cart")]
+        public  IActionResult MarkItemAsInCart(int itemId)
         {
-            return _context.Items.Any(e => e.Id == id);
+            var item = _context.Items.Find(itemId);
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            item.InCart = true;
+             _context.SaveChanges();
+            return NoContent();
         }
 
 
-         [HttpDelete("{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteItem(int id)
         {
             var item = await _context.Items.FindAsync(id);
@@ -114,7 +109,9 @@ namespace Wishify.Controllers
             return NoContent();
         }
 
-           [HttpGet("user/{userId}")]
+           
+           
+        [HttpGet("user/{userId}")]
         public async Task<ActionResult<IEnumerable<ItemDTO>>> GetItemsByUserId(int userId)
         {
             var items = await _context.Items

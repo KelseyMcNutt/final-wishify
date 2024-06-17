@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect,  useState } from 'react';
 import { getItemDetailsById } from '../../Managers/itemManager';
 import { getBoardItemsByItemId, updateBoardItems} from '../../Managers/boardItemManager';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getBoardsByUserId } from '../../Managers/boardManager';
 import { deleteItem } from '../../Managers/itemManager';
-import "./Items.css"
 import "./ItemDetails.css"
 import { IoArrowBackSharp } from "react-icons/io5";
+import { addCartItem } from '../../Managers/itemManager';
 
 
 
@@ -40,7 +40,8 @@ function ItemDetails({loggedInUser}) {
 
     fetchItemDetails();
     fetchBoardItems();
-  }, [itemId]);
+
+  }, [itemId, loggedInUser.id]);
 
   const handleBoardChange = (boardId) => {
     setSelectedBoards(prevSelectedBoards =>
@@ -67,22 +68,53 @@ function ItemDetails({loggedInUser}) {
     }
   };
 
+  const backButtonClicked = () => {
+    const editClicked = localStorage.getItem('editClicked') === 'true';
+    const clickNum = localStorage.getItem('clickedAmount')
+    if (editClicked) {
+      localStorage.removeItem('editClicked');
+      localStorage.removeItem('clickedAmount')
+      navigate(-(clickNum));
+    } else {
+      navigate(-1);
+    }
+  };
+
+ 
+
+  const handleEdit = () => {
+    localStorage.setItem('editClicked', 'true');
+    let clickedAmount = parseInt(localStorage.getItem('clickedAmount')) || 1;
+    clickedAmount += 2
+    localStorage.setItem('clickedAmount', clickedAmount)
+    navigate(`/item/${itemId}/edit`)
+   
+  }
+
+  const addCart = () => {
+      addCartItem(itemId);
+      setItem({ ...item, inCart: true });
+   
+  };
+
+ 
+
   if (!item) {
     return <div>Loading...</div>;
   }
 
   return (
     <div className='item-details-page'>
-      <button className='back-btn' onClick={() => navigate(-1)}> <IoArrowBackSharp /> </button>
+      <button className='back-btn' onClick={backButtonClicked}> <IoArrowBackSharp /> </button>
     <div className="item-details">
         <h2>{item.name}</h2>
         <img src={item.image} alt={item.name} />
         <p>Price: ${item.price}</p>
-        <p>Link: <a href={item.link}>{item.link}</a></p>
+        <p>Link: <a href={item.link} target="_blank" rel="noopener noreferrer">{item.link}</a></p>
         <p>Store: {item.store.name}</p>
         <button onClick={handleDelete} className='delete-item'>Delete</button>
-        <button onClick={() => navigate(`/item/${itemId}/edit`)} className='edit-item'>Edit</button>
-        
+        <button onClick={handleEdit} className='edit-item'>Edit</button>
+        <button onClick={addCart} className='cart-button'>Cart</button>        
       </div>
      
       <div className='boards-list-div'>

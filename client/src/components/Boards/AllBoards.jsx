@@ -20,7 +20,7 @@ function BoardList({ loggedInUser }) {
     fetchBoards();
   }, [loggedInUser]);
 
-  // Function to handle navigation to the create board form
+  
   const navigateToCreateBoard = () => {
     navigate('/create');
   };
