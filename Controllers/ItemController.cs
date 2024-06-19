@@ -116,6 +116,7 @@ namespace Wishify.Controllers
         {
             var items = await _context.Items
                 .Where(i => i.UserProfileId == userId)
+                .OrderByDescending(i => i.DateAdded)
                 .Select(i => new ItemDTO
                 {
                     Id = i.Id,

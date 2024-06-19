@@ -89,6 +89,7 @@ namespace Wishify.Controllers
                     LastName = i.UserProfile.LastName,
                     ProfileImage = i.UserProfile.ProfileImage,
                     MonthlyBudget = i.UserProfile.MonthlyBudget
+                    
                 },
                 DateAdded = i.DateAdded,
                 InCart = i.InCart

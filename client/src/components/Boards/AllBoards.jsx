@@ -25,6 +25,10 @@ function BoardList({ loggedInUser }) {
     navigate('/create');
   };
 
+  if (!boards) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="board-list-container">
       <div className="board-list-header">

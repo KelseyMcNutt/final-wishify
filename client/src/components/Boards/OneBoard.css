@@ -3,3 +3,22 @@
     
     
 }
+
+.delete-button {
+    background-color: transparent;
+}
+
+.board-item-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.board-item-display {
+    margin-top: 100px;
+
+}
+
+.one-board-item {
+    margin: 25px;
+}

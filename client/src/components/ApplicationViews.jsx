@@ -14,6 +14,7 @@ import UserProfile from './UserProfile/UserProifle';
 import EditUserProfile from './UserProfile/EditUserProfile';
 import NavBar from './NavBar/NavBar';
 import { Outlet } from 'react-router-dom';
+import ColorPicker from './UserProfile/ColorPicker';
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
@@ -61,8 +62,10 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
       </Route>
       
       <Route path="/user-profile">
-        <Route index element={<UserProfile loggedInUser={loggedInUser} />} />
+        <Route index element={<UserProfile loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />} />
       </Route>
+
+      <Route path="/color-picker" element={<ColorPicker loggedInUser={loggedInUser}/>} />
       
       <Route path="/user-profile/edit">
         <Route index element={<EditUserProfile loggedInUser={loggedInUser} />} />

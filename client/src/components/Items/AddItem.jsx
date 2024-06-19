@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, FormGroup, Input, Label } from 'reactstrap';
 import { addStore } from '../../Managers/storeManager';
 import { getUserStores } from '../../Managers/storeManager';
+import "./AddItem.css"
 
 function AddItem({loggedInUser}) {
   const [name, setName] = useState('');

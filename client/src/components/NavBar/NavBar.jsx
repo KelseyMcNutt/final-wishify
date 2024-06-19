@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink as RRNavLink } from "react-router-dom";
 import {
   Button,
@@ -10,19 +10,31 @@ import {
   NavbarBrand,
   NavbarToggler,
 } from "reactstrap";
-import { logout } from "../../Managers/authManager";
-import "./NavBar.css"; // Import your CSS file
+import "./NavBar.css"; 
+import { getUsersById } from "../../Managers/userManager";
+import { useNavigate } from "react-router-dom";
+import "../../../public/uploads/logo.png"
 
 export default function NavBar({ loggedInUser, setLoggedInUser }) {
   const [open, setOpen] = useState(false);
+  const [profile, setProfile] = useState({})
+  const navigate = useNavigate();
 
   const toggleNavbar = () => setOpen(!open);
 
+  useEffect(() => {
+    getUsersById(loggedInUser.id).then(setProfile)
+    }, [loggedInUser]);
+
+  
+
   return (
     <div className="navbar-container">
-      <Navbar color="light" light fixed="true" expand="lg">
+      <Navbar className="navbar" color="white" light fixed="true" expand="lg" >
         <NavbarBrand className="mr-auto" tag={RRNavLink} to="/">
-          WISHIFY
+    
+          <img className="logo-img" src="/uploads/logo2.png" alt="logo"></img>
+         
         </NavbarBrand>
         {loggedInUser ? (
           <>
@@ -30,35 +42,25 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
             <Collapse isOpen={open} navbar>
               <Nav navbar>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/">
+                  <NavLink className="nav-boards" tag={RRNavLink} to="/">
                     Boards
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/items">
+                  <NavLink className="nav-items" tag={RRNavLink} to="/items">
                     All Items
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/user-profile">
-                    Profile
+                  <NavLink  tag={RRNavLink} to="/user-profile">
+                    <img  className="nav-image" src={profile.profileImage} alt="profile image"></img>
+                    
                   </NavLink>
                 </NavItem>
               </Nav>
             </Collapse>
-            <Button
-              color="primary"
-              onClick={(e) => {
-                e.preventDefault();
-                setOpen(false);
-                logout().then(() => {
-                  setLoggedInUser(null);
-                  setOpen(false);
-                });
-              }}
-            >
-              Logout
-            </Button>
+        
+            
           </>
         ) : (
           <Nav navbar>

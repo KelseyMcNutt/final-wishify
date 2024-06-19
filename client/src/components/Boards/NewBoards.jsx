@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { createBoard } from '../../Managers/boardManager';
 import { useNavigate } from 'react-router-dom';
+import "./NewBoard.css"
 
 function BoardForm({ loggedInUser}) {
   const [name, setName] = useState('');
