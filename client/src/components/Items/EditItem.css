@@ -1,0 +1,36 @@
+.edit-item-form {
+    border: black 1px solid;
+    padding: 30px;
+    background-color: white;
+    width: 500px;
+    margin-top: 90px;
+}
+
+.edit-name {
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.edit-link {
+    margin-bottom: 10px;
+}
+
+.edit-image {
+    margin-bottom: 10px;
+}
+
+.edit-price {
+    margin-bottom: 10px;
+}
+
+.edit-store {
+    margin-bottom: 10px;
+}
+
+.edit-new-store {
+    margin-bottom: 10px;
+}
+
+.edit-cart-bool {
+    margin-bottom: 10px;
+}

@@ -5,6 +5,8 @@ import { getBoardById } from '../../Managers/boardManager';
 import { getItemsForBoard } from '../../Managers/boardItemManager';
 import { Link } from 'react-router-dom';
 import "./OneBoard.css"
+import { IoPencil } from "react-icons/io5";
+import { FaTrashAlt } from "react-icons/fa";
 
 function BoardItemDisplay() {
   const [items, setItems] = useState([]);
@@ -51,11 +53,11 @@ function BoardItemDisplay() {
   return (
     <div className="board-item-display">
       <h2 className="board-item-name">{boardName}</h2>
-      <button onClick={handleDelete} className="delete-button">Delete</button>
-      <button onClick={handleEdit} className="edit-button">Edit</button>
+      <button onClick={handleDelete} className="delete-button"><FaTrashAlt /></button>
+      <button onClick={handleEdit} className="edit-button"><IoPencil/></button>
       <div className="board-item-grid">
         {items.map(item => (
-          <div key={item.id} className="board-item">
+          <div key={item.id} className="one-board-item">
             <Link to={`/item/${item.id}`}>
               <img src={item.image} alt={item.name} className="board-item-image" />
               </Link>

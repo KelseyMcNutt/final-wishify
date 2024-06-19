@@ -2,11 +2,14 @@
     border: black solid 1px;
     margin-right: 120px;
     padding: 30px;
-    width: 670px;
+    width: 570px;
+    background-color: white;
+    height: 500px;
 }
 
 .item-details-page {
     display: flex;
+    margin-top: 120px;;
    
 }
 
@@ -34,3 +37,44 @@ body {
     background-color: rgb(241, 225, 205);
 }
 
+.back-btn {
+    position: absolute;
+    top: 150px;
+    left: 50px;
+    background-color: transparent;
+    
+}
+
+.item-price {
+    margin-top: 20px;
+}
+
+.item-image-details {
+    margin-top: 20px;
+}
+
+.delete-item {
+    position: absolute;
+    bottom: 110px;
+    left: 250px;
+}
+
+.edit-item {
+    position: absolute;
+    bottom: 110px;
+    left: 320px;
+}
+
+.cart-button {
+    position: absolute;
+    bottom: 110px;
+    right: 600px;
+}
+
+.item-name {
+    color: black;
+}
+
+.item-name:hover {
+    color: blue;
+}

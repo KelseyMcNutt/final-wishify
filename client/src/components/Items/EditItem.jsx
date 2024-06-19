@@ -3,6 +3,8 @@ import { getItemDetailsById, updateItemDetails } from '../../Managers/itemManage
 import { useNavigate, useParams } from 'react-router-dom';
 import { addStore } from '../../Managers/storeManager';
 import { getUserStores } from '../../Managers/storeManager';
+import "./EditItem.css"
+import { Button, FormGroup, Input, Label , Form} from 'reactstrap';
 
 function EditItem({loggedInUser}) {
   const [item, setItem] = useState({
@@ -49,19 +51,19 @@ function EditItem({loggedInUser}) {
 const handleAddStore = async () => {
   try {
     const addedStoreResponse = await addStore({ name: newStore });
-    const addedStore = await addedStoreResponse.json(); // Parse JSON response
+    const addedStore = await addedStoreResponse.json(); 
 
-    // Update stores list
+   
     const updatedStores = [...stores, addedStore];
     setStores(updatedStores);
 
-    // Update item with new store ID
+    
     setItem(prevItem => ({
       ...prevItem,
       storeId: addedStore.id
     }));
 
-    // Clear newStore input
+    
     setNewStore('');
   } catch (error) {
     console.error('Error adding store:', error);
@@ -89,43 +91,48 @@ const handleAddStore = async () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Name:</label>
-        <input type="text" name="name" value={item.name} onChange={handleChange} />
-      </div>
-      <div>
-        <label>Link:</label>
-        <input type="text" name="link" value={item.link} onChange={handleChange} />
-      </div>
-      <div>
-        <label>Image:</label>
-        <input type="text" name="image" value={item.image} onChange={handleChange} />
-      </div>
-      <div>
-        <label>Price:</label>
-        <input type="number" name="price" value={item.price} onChange={handleChange} />
-      </div>
-      <div>
-        <label>Store</label>
-        <select name="storeId" value={item.storeId} onChange={handleChange}>
+    <Form onSubmit={handleSubmit}>
+    <FormGroup className='edit-item-form'>
+      <h2>Edit Item</h2>
+    <FormGroup >
+      <FormGroup className='edit-name'>
+        <Label>Name:</Label>
+        <Input type="text" name="name" value={item.name} onChange={handleChange} />
+      </FormGroup>
+      <FormGroup className='edit-link'>
+        <Label>Link:</Label>
+        <Input type="text" name="link" value={item.link} onChange={handleChange} />
+      </FormGroup>
+      <FormGroup className='edit-image'>
+        <Label>Image:</Label>
+        <Input type="text" name="image" value={item.image} onChange={handleChange} />
+      </FormGroup>
+      <FormGroup className='edit-price'>
+        <Label>Price:</Label>
+        <Input type="number" name="price" value={item.price} onChange={handleChange} />
+      </FormGroup>
+      <FormGroup className='edit-store'>
+        <Label>Store:</Label>
+        <Input  type="select" name="storeId" value={item.storeId} onChange={handleChange}>
           <option value="">Select Store</option>
           {stores.map(store => (
             <option key={store.id} value={store.id}>{store.name}</option>
           ))}
-        </select>
-      </div>
-      <div>
-        <label>New Store:</label>
-        <input type="text" value={newStore} onChange={(e) => setNewStore(e.target.value)} />
-        <button type="button" onClick={handleAddStore}>Add Store</button>
-      </div>
-      <div>
-        <label>In Cart:</label>
-        <input type="checkbox" name="inCart" checked={item.inCart} onChange={() => setItem({ ...item, inCart: !item.inCart })} />
-      </div>
-      <button type="submit">Save</button>
-    </form>
+        </Input>
+      </FormGroup>
+      <FormGroup className='edit-new-store'>
+        <Label>New Store:</Label>
+        <Input type="text" value={newStore} onChange={(e) => setNewStore(e.target.value)} />
+        <Button type="button" onClick={handleAddStore}>Add Store</Button>
+      </FormGroup>
+      <FormGroup className='edit-cart-bool'>
+        <Label>In Cart:</Label>
+        <Input type="checkbox" name="inCart" checked={item.inCart} onChange={() => setItem({ ...item, inCart: !item.inCart })} />
+      </FormGroup>
+      <Button type="submit">Save</Button>
+    </FormGroup>
+    </FormGroup>
+    </Form>
   );
 }
 

@@ -14,6 +14,11 @@ export const AllItems = ({ loggedInUser }) =>
   const [filteredItems, setFilteredItems] = useState([]);
   const navigate = useNavigate();
 
+
+  if (!items) {
+    return <div>Loading...</div>;
+  }
+
   useEffect(() => {
     const fetchItems = async () => {
       try {
@@ -50,6 +55,7 @@ export const AllItems = ({ loggedInUser }) =>
   const handlePriceRangeChange = (e) => {
     setSelectedPriceRange(e.target.value);
   };
+
 
   useEffect(() => {
     const filterItems = () => {
@@ -91,46 +97,50 @@ export const AllItems = ({ loggedInUser }) =>
 
 
   return (
-    <>
+   
     <div className='all-items-header'>
     <h1 className='all-items-header-h1'>All Items</h1>
-    <input
-          type="text"
-          placeholder="Search items..."
-          value={searchQuery}
-          onChange={handleSearchChange}
-          className='search-input'
-        />
-    <select value={selectedStore} onChange={handleStoreChange} className='store-select'>
-          <option value="">All Stores</option>
-          {stores.map(store => (
-            <option key={store.id} value={store.id}>{store.name}</option>
-          ))}
-        </select>
-        <select value={selectedPriceRange} onChange={handlePriceRangeChange} className='price-select'>
-          <option value="">All Prices</option>
-          <option value="0-30">$0 - $30</option>
-          <option value="30-60">$30 - $60</option>
-          <option value="60-100">$60 - $100</option>
-          <option value="100-200">$100 - $200</option>
-          <option value="200+">$200+</option>
-        </select>
-    <button onClick={handleAddItemClick} className='add-item-button'>Add Item</button>
+    <div className='all-items-page'>
+    <div className='filter-items'>
+        <input
+              type="text"
+              placeholder="Search items..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+              className='search-input'
+            />
+        <select value={selectedStore} onChange={handleStoreChange} className='store-select'>
+              <option value="">All Stores</option>
+              {stores.map(store => (
+                <option key={store.id} value={store.id}>{store.name}</option>
+              ))}
+            </select>
+            <select value={selectedPriceRange} onChange={handlePriceRangeChange} className='price-select'>
+              <option value="">All Prices</option>
+              <option value="0-30">$0 - $30</option>
+              <option value="30-60">$30 - $60</option>
+              <option value="60-100">$60 - $100</option>
+              <option value="100-200">$100 - $200</option>
+              <option value="200+">$200+</option>
+            </select>
+            <button onClick={handleAddItemClick} className='add-item-button'>Add Item</button>
     </div>
+    </div>
+
     <div className="all-items">
-      <div className='one-item'>
-      {filteredItems.map(item => (
-        <img
-          key={item.id}
-          src={item.image}
-          alt={item.name}
-          onClick={() => handleItemClick(item.id)}
-          style={{ cursor: 'pointer', margin: '10px' }}
-        />
-      ))}
-      </div>
+        <div className='one-item'>
+        {filteredItems.map(item => (
+          <img
+            key={item.id}
+            src={item.image}
+            alt={item.name}
+            onClick={() => handleItemClick(item.id)}
+            style={{ cursor: 'pointer', margin: '10px' }}
+          />
+        ))}
+        </div>
     </div>
-    </>
+    </div>
   );
 }
 

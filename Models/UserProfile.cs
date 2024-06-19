@@ -26,5 +26,13 @@ public class UserProfile
     public string ProfileImage { get; set; }
     [Required]
     public decimal MonthlyBudget { get; set; }
+
+     public string FullName
+    {
+        get
+        {
+            return $"{FirstName} {LastName}";
+        }
+    }
    
 }

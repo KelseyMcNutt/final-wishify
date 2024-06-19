@@ -7,7 +7,10 @@ import { deleteItem } from '../../Managers/itemManager';
 import "./ItemDetails.css"
 import { IoArrowBackSharp } from "react-icons/io5";
 import { addCartItem } from '../../Managers/itemManager';
-
+import { Link } from 'react-router-dom';
+import { IoPencil } from "react-icons/io5";
+import { FaTrashAlt } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
 
 
 function ItemDetails({loggedInUser}) {
@@ -105,16 +108,15 @@ function ItemDetails({loggedInUser}) {
 
   return (
     <div className='item-details-page'>
-      <button className='back-btn' onClick={backButtonClicked}> <IoArrowBackSharp /> </button>
+      <button className='back-btn' onClick={backButtonClicked}> <IoArrowBackSharp size={30} /> </button>
     <div className="item-details">
-        <h2>{item.name}</h2>
-        <img src={item.image} alt={item.name} />
-        <p>Price: ${item.price}</p>
-        <p>Link: <a href={item.link} target="_blank" rel="noopener noreferrer">{item.link}</a></p>
-        <p>Store: {item.store.name}</p>
-        <button onClick={handleDelete} className='delete-item'>Delete</button>
-        <button onClick={handleEdit} className='edit-item'>Edit</button>
-        <button onClick={addCart} className='cart-button'>Cart</button>        
+        <Link to={item.link} target="_blank"><h2 className='item-name'>{item.name}</h2></Link>
+        <img src={item.image} alt={item.name} className='item-image-details' />
+        <p className='item-price'>Price: ${item.price}</p>
+        <p className='item-store'>Store: {item.store.name}</p>
+        <button onClick={handleDelete} className='delete-item'> <FaTrashAlt /> </button>
+        <button onClick={handleEdit} className='edit-item'> <IoPencil/> </button>
+        <button onClick={addCart} className='cart-button'> <FaShoppingCart /> </button>        
       </div>
      
       <div className='boards-list-div'>
